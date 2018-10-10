@@ -8,7 +8,7 @@ import (
 )
 
 const(
-	MinimumTxInNewBlock = 1
+	MinimumTxInNewBlock = 0
 	ZeroTxInNewBlock = 0
 )
 
