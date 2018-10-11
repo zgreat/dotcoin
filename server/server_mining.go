@@ -8,7 +8,7 @@ import (
 )
 
 const(
-	MinimumTxInNewBlock = 0
+	MinimumTxInNewBlock = 1
 	ZeroTxInNewBlock = 0
 )
 
@@ -16,7 +16,7 @@ const(
 func (s *Server) LoopMining(){
 	for{
 		runMining(s)
-		time.Sleep(10 * time.Second)
+		time.Sleep(30 * time.Second)
 	}
 }
 
@@ -52,7 +52,7 @@ func runMining(s *Server) (*chain.Block, error){
 		newBlock, isSuccess = s.BlockChain.MineBlock(txs)
 
 		if !isSuccess{
-			logx.Warnf("MineBlock failde")
+			logx.Warnf("MineBlock Failed")
 		}else {
 
 			s.BlockChain.GetUTXOSet().Rebuild()
@@ -75,7 +75,7 @@ func runMining(s *Server) (*chain.Block, error){
 			logx.Debugf("Server Mining Broadcast block [%v] inv message", hash.String())
 		}
 	}else{
-		logx.Tracef("MineBlock failde: no tx to mine")
+		logx.Tracef("MineBlock Failed: no tx found to include in block")
 	}
 
 	return newBlock, nil
